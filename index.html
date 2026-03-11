@@ -28,9 +28,25 @@
 </head>
 
 <body>
-  <h2 class="text-center text-4xl font-bold">hello js👋</h2>
 
-  <script src="script.js"></script>
+  <section class="w-[520px] h-[90%] m-auto bg-slate-100 rounded-xl py-10 px-5 mt-20">
+    <div class="w-11/12 mx-auto space-y-5">
+      <div class="text-center space-y-2">
+        <img src="asset/github-logo.png" alt="" class="mx-auto w-[80px]">
+        <h3 class="text-2xl font-bold text-gray-950">GitHub Issues Tracker</h3>
+        <p class="text-lg text-gray-500">Sign in to manage your issues</p>
+      </div>
+      <div class="space-y-2">
+        <label class="label">Enter Username</label><br>
+        <input id="username-input" type="text" class="input w-full" placeholder="Username: admin"><br>
+        <label class="label">Password</label><br>
+        <input id="password-input" type="password" class="input w-full" placeholder="Password: admin123"><br>
+        <button id="sign-in-btn" class="btn btn-primary mt-4 w-full">Sign In</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="./script/login.js"></script>
 </body>
 
 </html>

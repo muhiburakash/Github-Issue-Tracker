@@ -105,3 +105,40 @@ const displayIssues = (issues) => {
     issusCard.appendChild(card);
   }
 };
+
+// Tabs 
+const tabButtons = document.querySelectorAll('.tab-btn');
+
+// Set default active tab
+tabButtons.forEach(btn => {
+  if (btn.getAttribute('data-status') === 'all') {
+    btn.classList.add('btn-primary');
+    btn.classList.remove('btn-soft');
+  } else {
+    btn.classList.add('btn-soft');
+    btn.classList.remove('btn-primary');
+  }
+});
+
+// Tab click event
+tabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove primary from all
+    tabButtons.forEach(b => {
+      b.classList.remove('btn-primary');
+      b.classList.add('btn-soft');
+    });
+
+    // Add primary to clicked
+    btn.classList.add('btn-primary');
+    btn.classList.remove('btn-soft');
+
+    //Tab filter
+    const status = btn.getAttribute('data-status');
+    if (status === 'all') {
+      displayIssues(allIssues); // All issues
+    } else {
+      displayIssues(allIssues.filter(issue => issue.status === status));
+    }
+  });
+});

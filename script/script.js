@@ -54,6 +54,7 @@ const getLabels = (labels) => {
 
 // show issues
 const displayIssues = (issues) => {
+  document.getElementById("issues-count").innerText = issues.length;//Dynamic Issues count 
   const issusCard = document.getElementById('card-section');
   issusCard.innerHTML = '';
 

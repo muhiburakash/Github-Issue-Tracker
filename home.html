@@ -43,9 +43,15 @@
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Search" />
+
+          <!-- ADD ID HERE -->
+          <input id="search-input" type="search" placeholder="Search issues..." />
+
         </label>
-        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Issue</button>
+
+        <button id="search-btn" class="btn btn-primary">
+          Search
+        </button>
       </div>
     </section>
   </header>
@@ -80,6 +86,10 @@
 
     <!-- card section -->
     <section id="card-section" class="w-11/12 mx-auto bg-slate-100 rounded-xl p-10 grid grid-cols-3 gap-5">
+      <div id="no-issue-found" class="col-span-3 items-center p-20 hidden">
+        <img src="asset/Aperture.png" alt="" class="mx-auto">
+        <h3 class="text-2xl font-semibold">No issues found</h3>
+      </div>
     </section>
   </section>
   <script src="./script/script.js"></script>

@@ -56,6 +56,7 @@ const getLabels = (labels) => {
 const displayIssues = (issues) => {
   document.getElementById("issues-count").innerText = issues.length;//Dynamic Issues count 
   const issusCard = document.getElementById('card-section');
+
   issusCard.innerHTML = '';
 
   for (let issue of issues) {
@@ -142,4 +143,17 @@ tabButtons.forEach(btn => {
       displayIssues(allIssues.filter(issue => issue.status === status));
     }
   });
+});
+
+document.getElementById('search-btn').addEventListener('click', () => {
+
+  const input = document.getElementById('search-input');
+  const searchValue = input.value.trim().toLowerCase();
+
+  const filteredIssues = allIssues.filter(issue =>
+    issue.title.toLowerCase().includes(searchValue)
+  );
+
+  displayIssues(filteredIssues);
+
 });

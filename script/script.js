@@ -1,6 +1,5 @@
 let allIssues = [];
 
-// Load all isses
 const loadIssues = () => {
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then(res => res.json())
@@ -37,15 +36,15 @@ const getLabels = (labels) => {
   return labels.map(label => {
 
     if (label === "bug") {
-      return `<span class="bg-red-100 text-red-600 px-3 py-1 rounded text-md">BUG</span>`;
+      return `<span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-md">BUG</span>`;
     }
 
     if (label === "help wanted") {
-      return `<span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded text-md">HELP WANTED</span>`;
+      return `<span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-md">HELP WANTED</span>`;
     }
 
     if (label === "enhancement") {
-      return `<span class="bg-green-100 text-green-600 px-3 py-1 rounded text-md">ENHANCEMENT</span>`;
+      return `<span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-md">ENHANCEMENT</span>`;
     }
 
   }).join("");
@@ -73,7 +72,7 @@ const displayIssues = (issues) => {
       : "asset/Closed.png";    // closed issue icon
 
     card.innerHTML = `
-      <div class="bg-white p-10 rounded-xl space-y-3 shadow-md text-left  transition duration-300 ease-in-out cursor-pointer hover:shadow-xl hover:translate-y-[-4px] ${borderColor} ">
+      <div onclick="loadSingleIssue(${issue.id})" class="bg-white p-10 rounded-xl space-y-3 shadow-md text-left transition duration-300 ease-in-out cursor-pointer hover:shadow-xl hover:translate-y-[-4px] ${borderColor}">
 
         <div class="flex justify-between items-center">
 
@@ -81,7 +80,7 @@ const displayIssues = (issues) => {
              <img src="${statusImg}" alt="${issue.status}">
            </button>
 
-           <span class="px-3 py-1 rounded text-md uppercase ${getPriorityColor(issue.priority)}">
+           <span class="px-3 py-1 rounded-full text-md uppercase ${getPriorityColor(issue.priority)}">
              ${issue.priority}
            </span>
 
@@ -157,3 +156,49 @@ document.getElementById('search-btn').addEventListener('click', () => {
   displayIssues(filteredIssues);
 
 });
+// Load single issue by ID
+const loadSingleIssue = async (id) => {
+
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+
+  const res = await fetch(url);
+
+  const data = await res.json();
+
+  displaySingleIssue(data.data);
+
+};
+
+const displaySingleIssue = (issue) => {
+
+  const singleIssue = document.getElementById('single-issue');
+  const statusImg = issue.status === "open"
+    ? "opened"
+    : "closed";
+  singleIssue.innerHTML = `
+      <h3 class="font-bold text-xl">${issue.title}</h3>
+      <div class="flex items-center gap-2">
+      <button class="border-none bg-green-700 text-white rounded-full py-1 px-3">${issue.status}</button>
+      <p class="flex items-center gap-1 text-sm text-[#64748B]"><span class="text-[5px]"><i class="fa-solid fa-circle"></i></span> ${issue.status} by ${issue.author} <span class="text-[5px]"><i class="fa-solid fa-circle"></i></span> ${new Date(issue.createdAt).toLocaleDateString()}</p>
+      </div>
+      
+      <p class="text-md text-gray-600">${issue.description}</p>
+      <div class="flex gap-2 mt-2">
+          ${getLabels(issue.labels)}
+        </div>
+      <div class="bg-slate-100 p-3 rounded-md flex">
+      <div class="w-50">
+      <p>Assignee:</p>
+      <p class="font-semibold">${issue.assignee ? issue.assignee : 'no assignee'}</p>
+      </div> 
+      <div class="w-50">
+      <p class="pb-2">Priority:</p>
+      <span class="px-3 py-1 rounded-full text-md  ${getPriorityColor(issue.priority)}">${issue.priority}</span>
+      </div>
+      </div>
+    
+  `;
+
+  document.getElementById('my_modal_5').showModal();
+
+};

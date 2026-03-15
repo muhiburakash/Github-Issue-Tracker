@@ -1,0 +1,45 @@
+1.Difference between var, let, and const:
+   var, let, এবং const JavaScript এ variable declare করার জন্য ব্যবহার করা হয়। var হলো পুরনো system এবং এটি function scope ব্যবহার করে। let এবং const block scope ব্যবহার করে, তাই এগুলো modern JavaScript এ বেশি ব্যবহার করা হয়। let দিয়ে declare করা variable পরে change করা যায়, কিন্তু const দিয়ে declare করা variable change করা যায় না।
+   
+   Exmple:
+   var a = 10;
+   let b = 20;
+   b = 30; // allowed
+
+   const c = 40;
+   c = 50 //error
+
+2.What is the spread operator (...):
+  Spread operator (...) array বা object এর element বা property expand বা copy করার জন্য ব্যবহার করা হয়। এটি মূলত data copy করা বা merge করার কাজে লাগে।
+
+  Example:
+  const numbers = [1,2,3];
+  const newNumbers = [...numbers,4,5];
+  console.log(newNumbers);
+
+
+3.Difference between map(), filter(), and forEach():
+  map(), filter(), এবং forEach() array এর উপর কাজ করার method। map() নতুন array তৈরি করে, filter() condition অনুযায়ী item select করে নতুন array তৈরি করে, আর forEach() শুধু loop চালায় কিন্তু নতুন array return করে না।
+  
+  Example:
+  const numbers = [1,2,3,4];
+  numbers.forEach(n => console.log(n)); // loop
+  const doubled = numbers.map(n => n * 2);// [2,4,6,8]
+  const filtered = numbers.filter(n => n > 2);// [3,4]
+
+4.What is an arrow function:
+  Arrow function হলো JavaScript এ function লেখার short syntax। এটি => ব্যবহার করে লেখা হয় এবং code ছোট ও clean হয়।
+
+  Example:
+  const add = (a,b) => a + b;
+  console.log(add(5,3));
+  // 8
+
+5.What are template literals:
+  Template literals ব্যবহার করা হয় string এর ভিতরে variable বা expression সহজে যোগ করার জন্য। এটি backtick ( ) ব্যবহার করে লেখা হয় এবং ${} এর ভিতরে variable বসানো হয়।
+
+  Example:
+  const name = "Akash";
+  const message = `Hello ${name}`;
+  console.log(message);
+  //Hello Akash

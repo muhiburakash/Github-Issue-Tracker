@@ -1,16 +1,30 @@
 let allIssues = [];
 
 const loadIssues = () => {
+
+  manageSpinner(true); //spinner show
+
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then(res => res.json())
     .then(json => {
       allIssues = json.data;
       displayIssues(allIssues);
+
+      manageSpinner(false);//spinner hide
     });
+
 };
+//Loading spinner 
+const manageSpinner = (status) => {
+  const spinner = document.getElementById('spinner');
 
+  if (status) {
+    spinner.classList.remove('hidden');
+  } else {
+    spinner.classList.add('hidden');
+  }
+}
 loadIssues();
-
 
 // Status priority color
 const getPriorityColor = (priority) => {
@@ -30,7 +44,7 @@ const getPriorityColor = (priority) => {
 };
 
 
-// labels show
+// labels 
 const getLabels = (labels) => {
 
   return labels.map(label => {
@@ -124,13 +138,13 @@ tabButtons.forEach(btn => {
 // Tab click event
 tabButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Remove primary from all
+    // Remove primary btn from all
     tabButtons.forEach(b => {
       b.classList.remove('btn-primary');
       b.classList.add('btn-soft');
     });
 
-    // Add primary to clicked
+    // Add primary btn
     btn.classList.add('btn-primary');
     btn.classList.remove('btn-soft');
 
@@ -158,13 +172,9 @@ document.getElementById('search-btn').addEventListener('click', () => {
 });
 // Load single issue by ID
 const loadSingleIssue = async (id) => {
-
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
-
   const res = await fetch(url);
-
   const data = await res.json();
-
   displaySingleIssue(data.data);
 
 };
@@ -189,7 +199,8 @@ const displaySingleIssue = (issue) => {
       <div class="bg-slate-100 p-3 rounded-md flex">
       <div class="w-50">
       <p>Assignee:</p>
-      <p class="font-semibold">${issue.assignee ? issue.assignee : 'no assignee'}</p>
+      
+      <p class="font-semibold">${issue.assignee ? issue.assignee : 'No Assignee'}</p>
       </div> 
       <div class="w-50">
       <p class="pb-2">Priority:</p>
@@ -200,5 +211,4 @@ const displaySingleIssue = (issue) => {
   `;
 
   document.getElementById('my_modal_5').showModal();
-
 };
